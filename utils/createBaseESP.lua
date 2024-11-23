@@ -1,9 +1,7 @@
-SX_VM_CNONE();
-local Maid = sharedRequire('Maid.lua');
-local Services = sharedRequire('Services.lua');
+local Services = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/Services.lua'))();
+local Maid = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/Maid.lua'))();
 
-local toCamelCase = sharedRequire('toCamelCase.lua');
-local library = sharedRequire('../UILibrary.lua');
+local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/library.lua'))();
 
 local Players, CorePackages, HttpService = Services:Get('Players', 'CorePackages', 'HttpService');
 local LocalPlayer = Players.LocalPlayer;
@@ -180,8 +178,6 @@ local function createBaseEsp(flag, container)
 		self._instance = instance;
 		self._text = displayName;
 		self._color = color;
-		self._showFlag = toCamelCase('Show ' .. self._tag);
-		self._colorFlag = toCamelCase(self._tag .. ' Color');
 		self._colorFlag2 = BaseEsp.Flag .. 'Color';
 		self._showDistanceFlag = BaseEsp.Flag .. 'ShowDistance';
 		self._isLazy = isLazy;
@@ -210,7 +206,7 @@ local function createBaseEsp(flag, container)
 			updateType = 'new',
 			data = smallData,
 			isCustomInstance = isCustomInstance,
-			showFlag = showESPFlag
+			
 		});
 
 
