@@ -1,4 +1,4 @@
-local Services = sharedRequire('@utils/Services.lua');
+local Services = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/Services.lua'))();
 local HttpService = Services:Get('HttpService');
 
 local Webhook = {};
