@@ -1,11 +1,3 @@
-
-
-local Signal = sharedRequire('./Signal.lua');
-local tableStr = getServerConstant('table');
-local classNameStr = getServerConstant('Maid');
-local funcStr = getServerConstant('function');
-local threadStr = getServerConstant('thread');
-
 local Maid = {}
 Maid.ClassName = "Maid"
 
@@ -19,7 +11,7 @@ function Maid.new()
 end
 
 function Maid.isMaid(value)
-	return type(value) == tableStr and value.ClassName == classNameStr
+	return type(value) == "table" and value.ClassName == Maid.ClassName
 end
 
 --- Returns Maid[key] if not part of Maid metatable
@@ -59,15 +51,13 @@ function Maid:__newindex(index, newTask)
 		if type(oldTask) == "function" then
 			oldTask()
 		elseif typeof(oldTask) == "RBXScriptConnection" then
-			oldTask:Disconnect();
-		elseif typeof(oldTask) == 'table' then
-			oldTask:Remove();
-		elseif (Signal.isSignal(oldTask)) then
-			oldTask:Destroy();
-		elseif (typeof(oldTask) == 'thread') then
-			task.cancel(oldTask);
+			oldTask:Disconnect()
+		elseif type(oldTask) == "table" and oldTask.Remove then
+			oldTask:Remove()
+		elseif coroutine.status(oldTask) == "suspended" then
+			task.cancel(oldTask)
 		elseif oldTask.Destroy then
-			oldTask:Destroy();
+			oldTask:Destroy()
 		end
 	end
 end
@@ -80,7 +70,7 @@ function Maid:GiveTask(task)
 		error("Task cannot be false or nil", 2)
 	end
 
-	local taskId = #self._tasks+1
+	local taskId = #self._tasks + 1
 	self[taskId] = task
 
 	return taskId
@@ -103,16 +93,14 @@ function Maid:DoCleaning()
 	local index, taskData = next(tasks)
 	while taskData ~= nil do
 		tasks[index] = nil
-		if type(taskData) == funcStr then
+		if type(taskData) == "function" then
 			taskData()
 		elseif typeof(taskData) == "RBXScriptConnection" then
 			taskData:Disconnect()
-		elseif (Signal.isSignal(taskData)) then
-			taskData:Destroy();
-		elseif typeof(taskData) == tableStr then
-			taskData:Remove();
-		elseif (typeof(taskData) == threadStr) then
-			task.cancel(taskData);
+		elseif type(taskData) == "table" and taskData.Remove then
+			taskData:Remove()
+		elseif coroutine.status(taskData) == "suspended" then
+			task.cancel(taskData)
 		elseif taskData.Destroy then
 			taskData:Destroy()
 		end
@@ -124,4 +112,4 @@ end
 -- @function Destroy
 Maid.Destroy = Maid.DoCleaning
 
-return Maid;
+return Maid
