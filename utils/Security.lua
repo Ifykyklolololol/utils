@@ -1,4 +1,4 @@
-local Webhook = sharedRequire('@utils/Webhook.lua');
+local Webhook = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/Webhook.lua'))();
 local WEBHOOK_URL = '';
 
 local Security = {};
