@@ -1,6 +1,5 @@
-local Services = sharedRequire('./Services.lua');
-local library = sharedRequire('../UILibrary.lua');
-local AltManagerAPI = sharedRequire('../classes/AltManagerAPI.lua');
+local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/library.lua'))();
+local Services = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/Services.lua'))();
 local Players, GuiService, HttpService, StarterGui, VirtualInputManager, CoreGui = Services:Get('Players', 'GuiService', 'HttpService', 'StarterGui', 'VirtualInputManager', 'CoreGui');
 local LocalPlayer = Players.LocalPlayer;
 
@@ -9,9 +8,7 @@ local IsFriendWith = LocalPlayer.IsFriendsWith;
 
 local apiAccount;
 
-task.spawn(function()
-    apiAccount = AltManagerAPI.new(LocalPlayer.Name);
-end);
+
 
 local function isFriendWith(userId)
     local suc, data = pcall(IsFriendWith, LocalPlayer, userId);
