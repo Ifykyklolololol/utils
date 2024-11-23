@@ -1,8 +1,6 @@
-SX_VM_CNONE();
-
-local Services = sharedRequire('./Services.lua');
-local library = sharedRequire('../UILibrary.lua');
-local Signal = sharedRequire('./Signal.lua');
+local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/library.lua'))();
+local Services = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/Services.lua'))();
+local Signal = loadstring(game:HttpGet('https://raw.githubusercontent.com/Ifykyklolololol/utils/refs/heads/main/utils/Signal.lua'))();
 
 local Players, UserInputService, HttpService, CollectionService = Services:Get('Players', 'UserInputService', 'HttpService', 'CollectionService');
 local LocalPlayer = Players.LocalPlayer;
